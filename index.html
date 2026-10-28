@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تطبيق الطقس المباشر | Weather App</title>
+  <!-- خط IBM Plex Sans Arabic لتصميم مختلف عن المشاريع السابقة -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="weather-container">
+    <!-- الهيدر وشريط البحث -->
+    <header class="search-section">
+      <div class="brand">
+        <span class="brand-icon">🌤️</span>
+        <h1>طقس العالم المباشر</h1>
+      </div>
+
+      <form id="search-form" class="search-form">
+        <input 
+          type="text" 
+          id="city-input" 
+          placeholder="ابحث عن أي مدينة... (مثال: القاهرة، الإسكندرية، دبي، London)" 
+          autocomplete="off"
+          required 
+        />
+        <button type="submit" class="search-btn">بحث 🔍</button>
+      </form>
+
+      <!-- أزرار سريعة لمدن جاهزة -->
+      <div class="quick-cities">
+        <span>مدن سريعة:</span>
+        <button type="button" class="city-chip" data-city="القاهرة">القاهرة</button>
+        <button type="button" class="city-chip" data-city="الإسكندرية">الإسكندرية</button>
+        <button type="button" class="city-chip" data-city="مكة">مكة</button>
+        <button type="button" class="city-chip" data-city="دبي">دبي</button>
+        <button type="button" class="city-chip" data-city="لندن">لندن</button>
+      </div>
+    </header>
+
+    <!-- حالة التحميل (Loading) -->
+    <div id="loading" class="status-box hidden">
+      <div class="spinner"></div>
+      <p>جاري جلب بيانات الطقس المباشرة من الـ API...</p>
+    </div>
+
+    <!-- رسالة الخطأ (Error) -->
+    <div id="error-box" class="status-box error-box hidden">
+      <p id="error-message">لم نتمكن من العثور على هذه المدينة، تأكد من كتابة الاسم بشكل صحيح.</p>
+    </div>
+
+    <!-- محتوى الطقس الرئيسي -->
+    <section id="weather-content" class="weather-content hidden">
+      
+      <!-- الكارت الرئيسي للطقس الحالي -->
+      <div class="current-weather-card">
+        <div class="location-info">
+          <h2 id="city-name">--</h2>
+          <p id="current-date">--</p>
+        </div>
+
+        <div class="temp-display">
+          <div id="weather-icon" class="weather-icon">☀️</div>
+          <div class="temp-values">
+            <span id="current-temp" class="big-temp">--°C</span>
+            <p id="weather-desc" class="weather-desc">--</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- شبكة التفاصيل (الرطوبة، الرياح، الإحساس، الضغط) -->
+      <div class="details-grid">
+        <div class="detail-card">
+          <span class="detail-icon">🌡️</span>
+          <div>
+            <p class="detail-label">الإحساس الفعلي</p>
+            <h3 id="feels-like">--°C</h3>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <span class="detail-icon">💧</span>
+          <div>
+            <p class="detail-label">نسبة الرطوبة</p>
+            <h3 id="humidity">--%</h3>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <span class="detail-icon">💨</span>
+          <div>
+            <p class="detail-label">سرعة الرياح</p>
+            <h3 id="wind-speed">-- كم/س</h3>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <span class="detail-icon">🧭</span>
+          <div>
+            <p class="detail-label">الضغط الجوي</p>
+            <h3 id="pressure">-- hPa</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- توقعات الـ 5 أيام القادمة -->
+      <div class="forecast-section">
+        <h3 class="section-title">توقعات الأيام القادمة 📅</h3>
+        <div id="forecast-grid" class="forecast-grid"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
